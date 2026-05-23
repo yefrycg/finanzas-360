@@ -22,8 +22,8 @@ class AccountController extends Controller
         $type = request('type');
 
         $accounts = request()->user()->accounts()
-            ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%"))
-            ->when($type, fn($query) => $query->where('type', $type))
+            ->when($search, fn ($query) => $query->where('name', 'like', "%{$search}%"))
+            ->when($type, fn ($query) => $query->where('type', $type))
             ->orderBy('name')
             ->paginate(10)
             ->withQueryString();

@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateGoalRequest extends FormRequest
 {
@@ -18,7 +19,12 @@ class UpdateGoalRequest extends FormRequest
             'target_amount' => ['required', 'numeric', 'min:1'],
             'current_amount' => ['nullable', 'numeric', 'min:0'],
             'due_date' => ['required', 'date'],
-            'category_id' => ['required', 'exists:categories,id'],
+            'category_id' => [
+                'required',
+                'integer',
+                Rule::exists('categories', 'id')->where(fn ($query) => $query
+                    ->where('user_id', $this->user()->id)),
+            ],
         ];
     }
 
@@ -26,11 +32,6 @@ class UpdateGoalRequest extends FormRequest
     {
         $validator->after(function ($validator) {
             if ($validator->errors()->isEmpty()) {
-                $category = $this->user()->categories()->find($this->input('category_id'));
-                if (! $category) {
-                    $validator->errors()->add('category_id', 'La categoría seleccionada debe pertenecerte.');
-                }
-
                 $goal = $this->route('goal');
                 $currentAmount = (float) ($this->input('current_amount') ?? $goal->current_amount);
                 $targetAmount = (float) $this->input('target_amount');

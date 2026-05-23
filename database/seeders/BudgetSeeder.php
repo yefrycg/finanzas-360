@@ -64,7 +64,7 @@ class BudgetSeeder extends Seeder
 
         foreach ($budgets as $budgetData) {
             $categoryIds = collect($budgetData['categories'])
-                ->map(fn(string $name) => $categoryIdByName($name))
+                ->map(fn (string $name) => $categoryIdByName($name))
                 ->filter()
                 ->values();
 

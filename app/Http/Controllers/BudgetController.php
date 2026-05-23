@@ -5,10 +5,10 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreBudgetRequest;
 use App\Http\Requests\UpdateBudgetRequest;
 use App\Models\Budget;
-use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Pagination\LengthAwarePaginator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
@@ -32,9 +32,9 @@ class BudgetController extends Controller
 
         $budgets = $user->budgets()
             ->with('categories')
-            ->when($search !== '', fn($query) => $query->where('name', 'like', "%{$search}%"))
-            ->when($period !== '', fn($query) => $query->where('period', $period))
-            ->when($categoryId !== '', fn($query) => $query->whereHas('categories', fn($subQuery) => $subQuery->where('categories.id', $categoryId)))
+            ->when($search !== '', fn ($query) => $query->where('name', 'like', "%{$search}%"))
+            ->when($period !== '', fn ($query) => $query->where('period', $period))
+            ->when($categoryId !== '', fn ($query) => $query->whereHas('categories', fn ($subQuery) => $subQuery->where('categories.id', $categoryId)))
             ->orderBy('created_at', 'desc')
             ->get();
 
@@ -47,7 +47,7 @@ class BudgetController extends Controller
 
         if ($status !== '') {
             $budgets = $budgets
-                ->filter(fn(Budget $budget) => $budget->getAttribute('status') === $status)
+                ->filter(fn (Budget $budget) => $budget->getAttribute('status') === $status)
                 ->values();
         }
 

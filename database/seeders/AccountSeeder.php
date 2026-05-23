@@ -18,28 +18,28 @@ class AccountSeeder extends Seeder
 
         $accounts = [
             [
-                'name' => 'Banco Principal',
+                'name' => 'Banco de Bogotá',
                 'type' => 'checking_account',
                 'current_balance' => 3500000,
                 'color' => '#3b82f6',
                 'icon' => 'fas fa-building-columns',
             ],
             [
-                'name' => 'Efectivo',
+                'name' => 'Colchón',
                 'type' => 'cash',
                 'current_balance' => 200000,
                 'color' => '#22c55e',
                 'icon' => 'fas fa-money-bill',
             ],
             [
-                'name' => 'Ahorros',
+                'name' => 'Banco de Occidente',
                 'type' => 'savings_account',
                 'current_balance' => 5800000,
                 'color' => '#8b5cf6',
                 'icon' => 'fas fa-piggy-bank',
             ],
             [
-                'name' => 'Tarjeta Crédito',
+                'name' => 'Davivienda',
                 'type' => 'credit_card',
                 'current_balance' => 450000,
                 'credit_limit' => 5000000,

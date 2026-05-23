@@ -25,7 +25,7 @@ class StoreCategoryRequest extends FormRequest
     public function rules(): array
     {
         $allowedIcons = array_map(
-            static fn(array $icon) => $icon[0],
+            static fn (array $icon) => $icon[0],
             config('categories.icons', [])
         );
 

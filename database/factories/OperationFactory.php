@@ -2,8 +2,6 @@
 
 namespace Database\Factories;
 
-use App\Models\Account;
-use App\Models\Category;
 use App\Models\Operation;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
