@@ -42,7 +42,7 @@ class StoreDebtPaymentRequest extends FormRequest
             if ($paymentAmount > $remainingAmount) {
                 $validator->errors()->add(
                     'payment_amount',
-                    'El pago no puede ser mayor al saldo restante (' . number_format($remainingAmount, 0, ',', '.') . ').'
+                    'El pago no puede ser mayor al saldo restante ('.number_format($remainingAmount, 0, ',', '.').').'
                 );
             }
         });

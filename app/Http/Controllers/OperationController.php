@@ -29,15 +29,15 @@ class OperationController extends Controller
 
         $operations = request()->user()->operations()
             ->with(['category', 'account'])
-            ->when($search, fn($query) => $query->where(function ($q) use ($search) {
+            ->when($search, fn ($query) => $query->where(function ($q) use ($search) {
                 $q->where('note', 'like', "%{$search}%")
-                    ->orWhereHas('category', fn($cq) => $cq->where('name', 'like', "%{$search}%"))
-                    ->orWhereHas('account', fn($aq) => $aq->where('name', 'like', "%{$search}%"));
+                    ->orWhereHas('category', fn ($cq) => $cq->where('name', 'like', "%{$search}%"))
+                    ->orWhereHas('account', fn ($aq) => $aq->where('name', 'like', "%{$search}%"));
             }))
-            ->when($type, fn($query) => $query->where('type', $type))
-            ->when($accountId, fn($query) => $query->where('account_id', $accountId))
-            ->when($categoryId, fn($query) => $query->where('category_id', $categoryId))
-            ->when($dateFrom && $dateTo, fn($query) => $query->whereBetween('date_time', [$dateFrom, $dateTo]))
+            ->when($type, fn ($query) => $query->where('type', $type))
+            ->when($accountId, fn ($query) => $query->where('account_id', $accountId))
+            ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
+            ->when($dateFrom && $dateTo, fn ($query) => $query->whereBetween('date_time', [$dateFrom, $dateTo]))
             ->orderByDesc('date_time')
             ->paginate(10)
             ->withQueryString();
@@ -182,22 +182,22 @@ class OperationController extends Controller
             if ($oldType === 'income') {
                 DB::table('accounts')
                     ->where('id', $oldAccountId)
-                    ->update(['current_balance' => DB::raw('current_balance - ' . $oldAmount)]);
+                    ->update(['current_balance' => DB::raw('current_balance - '.$oldAmount)]);
             } else {
                 DB::table('accounts')
                     ->where('id', $oldAccountId)
-                    ->update(['current_balance' => DB::raw('current_balance + ' . $oldAmount)]);
+                    ->update(['current_balance' => DB::raw('current_balance + '.$oldAmount)]);
             }
 
             if ($newType === 'expense' && $newAmount > (float) $newAccount->current_balance) {
                 if ($oldType === 'income') {
                     DB::table('accounts')
                         ->where('id', $oldAccountId)
-                        ->update(['current_balance' => DB::raw('current_balance + ' . $oldAmount)]);
+                        ->update(['current_balance' => DB::raw('current_balance + '.$oldAmount)]);
                 } else {
                     DB::table('accounts')
                         ->where('id', $oldAccountId)
-                        ->update(['current_balance' => DB::raw('current_balance - ' . $oldAmount)]);
+                        ->update(['current_balance' => DB::raw('current_balance - '.$oldAmount)]);
                 }
 
                 return redirect()->back()->with('error', 'Saldo insuficiente en la nueva cuenta.')->withInput();
@@ -225,11 +225,11 @@ class OperationController extends Controller
                 if ($newType === 'income') {
                     DB::table('accounts')
                         ->where('id', $newAccountId)
-                        ->update(['current_balance' => DB::raw('current_balance + ' . $newAmount)]);
+                        ->update(['current_balance' => DB::raw('current_balance + '.$newAmount)]);
                 } else {
                     DB::table('accounts')
                         ->where('id', $newAccountId)
-                        ->update(['current_balance' => DB::raw('current_balance - ' . $newAmount)]);
+                        ->update(['current_balance' => DB::raw('current_balance - '.$newAmount)]);
                 }
             }
 
@@ -259,11 +259,11 @@ class OperationController extends Controller
             if ($operation->type === 'income') {
                 DB::table('accounts')
                     ->where('id', $account->id)
-                    ->update(['current_balance' => DB::raw('current_balance - ' . $amount)]);
+                    ->update(['current_balance' => DB::raw('current_balance - '.$amount)]);
             } else {
                 DB::table('accounts')
                     ->where('id', $account->id)
-                    ->update(['current_balance' => DB::raw('current_balance + ' . $amount)]);
+                    ->update(['current_balance' => DB::raw('current_balance + '.$amount)]);
             }
 
             $operation->delete();

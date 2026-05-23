@@ -15,7 +15,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 class Category extends Model
 {
     /** @use HasFactory<CategoryFactory> */
-    use HasFactory, BelongsToUser;
+    use BelongsToUser, HasFactory;
 
     public function user(): BelongsTo
     {

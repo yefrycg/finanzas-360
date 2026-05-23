@@ -5,6 +5,7 @@
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(100%);
     }
+
     table i[class*="fa-"] {
       display: inline-block !important;
       visibility: visible !important;
@@ -85,7 +86,8 @@
                         <option value="">Todas</option>
                         @foreach ($categories as $category)
                           <option value="{{ $category->id }}"
-                            {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}</option>
+                            {{ request('category_id') == $category->id ? 'selected' : '' }}>{{ $category->name }}
+                          </option>
                         @endforeach
                       </select>
                     </div>
@@ -106,8 +108,10 @@
                       <select name="status"
                         class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2 dark:bg-gray-600 dark:border-gray-500 dark:text-white">
                         <option value="">Todos</option>
-                        <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pendiente</option>
-                        <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completada</option>
+                        <option value="pending" {{ request('status') === 'pending' ? 'selected' : '' }}>Pendiente
+                        </option>
+                        <option value="completed" {{ request('status') === 'completed' ? 'selected' : '' }}>Completada
+                        </option>
                       </select>
                     </div>
                     <button type="submit"
@@ -179,7 +183,8 @@
                     <div class="flex items-center gap-2">
                       <span class="w-8 h-8 rounded-full flex items-center justify-center"
                         style="background-color: {{ $goal->category->color }}20; display: inline-flex !important;">
-                        <i class="{{ $goal->category->icon }} text-base" style="color: {{ $goal->category->color }}; display: inline-block !important;"></i>
+                        <i class="{{ $goal->category->icon }} text-base"
+                          style="color: {{ $goal->category->color }}; display: inline-block !important;"></i>
                       </span>
                       <span class="font-medium text-gray-900 dark:text-white">{{ $goal->category->name }}</span>
                     </div>
@@ -504,8 +509,12 @@
               @enderror
             </div>
           </div>
-          <button type="submit"
-            class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Actualizar</button>
+          <div class="flex items-center space-x-4">
+            <button type="submit"
+              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Actualizar</button>
+            <button type="button" data-modal-target="updateGoalModal" data-modal-toggle="updateGoalModal"
+              class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+          </div>
         </form>
       </div>
     </div>
@@ -517,23 +526,19 @@
     <div class="relative p-4 w-full max-w-xl max-h-full">
       <div
         class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
-        <div class="flex justify-between mb-4 rounded-t">
-          <div class="text-lg text-gray-900 md:text-xl dark:text-white">
-            <h3 class="font-semibold" id="read-name"></h3>
-          </div>
-          <div>
-            <button type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="readGoalModal">
-              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
-          </div>
+        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="read-name"></h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-target="readGoalModal" data-modal-toggle="readGoalModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Cerrar</span>
+          </button>
         </div>
         <dl>
           <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Categoría</dt>
@@ -563,10 +568,9 @@
           <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Estado</dt>
           <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400" id="read-status"></dd>
         </dl>
-        <div class="flex justify-between items-center">
-          <button type="button"
-            class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            data-modal-toggle="readGoalModal">Cerrar</button>
+        <div class="flex justify-end items-center pt-4 border-t dark:border-gray-600">
+          <button type="button" data-modal-target="readGoalModal" data-modal-toggle="readGoalModal"
+            class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cerrar</button>
         </div>
       </div>
     </div>
@@ -604,10 +608,13 @@
               <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
             @enderror
           </div>
-          <button type="submit"
-            class="text-white inline-flex items-center bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
-            Agregar Pago
-          </button>
+          <div class="flex items-center space-x-4">
+            <button type="submit"
+              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Guardar
+              Pago</button>
+            <button type="button" data-modal-target="paymentGoalModal" data-modal-toggle="paymentGoalModal"
+              class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Cancelar</button>
+          </div>
         </form>
       </div>
     </div>
@@ -617,7 +624,8 @@
   <div id="deleteGoalModal" tabindex="-1" aria-hidden="true"
     class="hidden fixed inset-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full overflow-y-auto">
     <div class="absolute inset-0 bg-gray-900/50" onclick="closeModal('deleteGoalModal')"></div>
-    <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
+    <div
+      class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
       <button type="button"
         class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         data-modal-toggle="deleteGoalModal">
@@ -703,8 +711,8 @@
             document.getElementById('read-status').textContent = status === 'completed' ? 'Completada' :
               'Pendiente';
             document.getElementById('read-status').className = status === 'completed' ?
-              'font-medium text-green-600 dark:text-green-400' :
-              'font-medium text-yellow-600 dark:text-yellow-400';
+              'mb-4 font-medium text-green-600 dark:text-green-400' :
+              'mb-4 font-medium text-yellow-600 dark:text-yellow-400';
           });
         });
 

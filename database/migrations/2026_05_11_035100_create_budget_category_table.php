@@ -6,19 +6,19 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-  public function up(): void
-  {
-    Schema::create('budget_category', function (Blueprint $table) {
-      $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
-      $table->foreignId('category_id')->constrained()->cascadeOnDelete();
+    public function up(): void
+    {
+        Schema::create('budget_category', function (Blueprint $table) {
+            $table->foreignId('budget_id')->constrained()->cascadeOnDelete();
+            $table->foreignId('category_id')->constrained()->cascadeOnDelete();
 
-      $table->unique(['budget_id', 'category_id']);
-      $table->index(['category_id', 'budget_id']);
-    });
-  }
+            $table->unique(['budget_id', 'category_id']);
+            $table->index(['category_id', 'budget_id']);
+        });
+    }
 
-  public function down(): void
-  {
-    Schema::dropIfExists('budget_category');
-  }
+    public function down(): void
+    {
+        Schema::dropIfExists('budget_category');
+    }
 };

@@ -7,8 +7,8 @@ use App\Http\Requests\StoreDebtRequest;
 use App\Http\Requests\UpdateDebtRequest;
 use App\Models\Debt;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -27,17 +27,17 @@ class DebtController extends Controller
         $status = $request->query('status');
 
         $debtsQuery = $request->user()->debts()
-            ->when($search, fn($query) => $query->where('lender', 'like', "%{$search}%"))
-            ->when($dateFrom, fn($query) => $query->whereDate('start_date', '>=', $dateFrom))
-            ->when($dateTo, fn($query) => $query->whereDate('end_date', '<=', $dateTo))
-            ->when($status, fn($query) => $query->where('status', $status))
+            ->when($search, fn ($query) => $query->where('lender', 'like', "%{$search}%"))
+            ->when($dateFrom, fn ($query) => $query->whereDate('start_date', '>=', $dateFrom))
+            ->when($dateTo, fn ($query) => $query->whereDate('end_date', '<=', $dateTo))
+            ->when($status, fn ($query) => $query->where('status', $status))
             ->orderBy('end_date');
 
         $debts = $debtsQuery->paginate(10)->withQueryString();
         $debtsCollection = $debtsQuery->get();
 
-        $totalPending = $debtsCollection->sum(fn($debt) => $debt->total_amount - ($debt->paid_amount ?? 0));
-        $totalPaid = $debtsCollection->sum(fn($debt) => $debt->paid_amount ?? 0);
+        $totalPending = $debtsCollection->sum(fn ($debt) => $debt->total_amount - ($debt->paid_amount ?? 0));
+        $totalPaid = $debtsCollection->sum(fn ($debt) => $debt->paid_amount ?? 0);
         $totalCount = $debtsCollection->count();
         $paidCount = $debtsCollection->where('status', 'paid')->count();
 

@@ -25,7 +25,7 @@ class UpdateOperationRequest extends FormRequest
         $user = $this->user();
 
         return [
-            'amount' => ['required', 'numeric', 'min:0.01'],
+            'amount' => ['required', 'numeric', 'min:0.01', 'max:99999999999999.99'],
             'date_time' => ['required', 'date'],
             'type' => ['required', 'in:income,expense'],
             'note' => ['nullable', 'string', 'max:500'],
@@ -63,6 +63,7 @@ class UpdateOperationRequest extends FormRequest
 
                 if (! $account) {
                     $validator->errors()->add('account_id', 'La cuenta no te pertenece.');
+
                     return;
                 }
 

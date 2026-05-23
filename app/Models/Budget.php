@@ -15,7 +15,7 @@ use Illuminate\Support\Carbon;
 class Budget extends Model
 {
     /** @use HasFactory<BudgetFactory> */
-    use HasFactory, BelongsToUser;
+    use BelongsToUser, HasFactory;
 
     protected function casts(): array
     {

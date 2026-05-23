@@ -2,7 +2,6 @@
 
 namespace App\Http\Requests;
 
-use App\Models\Budget;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
@@ -24,7 +23,7 @@ class UpdateBudgetRequest extends FormRequest
                 'required',
                 'integer',
                 'distinct',
-                Rule::exists('categories', 'id')->where(fn($query) => $query
+                Rule::exists('categories', 'id')->where(fn ($query) => $query
                     ->where('user_id', $this->user()->id)
                     ->where('type', 'expense')),
             ],

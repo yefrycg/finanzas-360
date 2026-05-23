@@ -4,17 +4,17 @@ namespace App\Services;
 
 use App\Models\Account;
 use App\Models\Budget;
-use App\Models\Category;
 use App\Models\Debt;
 use App\Models\Goal;
 use App\Models\Operation;
-use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 
 class DashboardStatsService
 {
     private int $userId;
+
     private string $filter;
+
     private array $dateRange;
 
     public function __construct(int $userId, string $filter = 'this_month')
@@ -59,6 +59,7 @@ class DashboardStatsService
 
         if ($currentNet > $prevNet && $prevNet != 0) {
             $improvement = $currentNet >= 0 ? 'mejorando' : 'recuperándose';
+
             return "Tus finanzas están {$improvement} este período.";
         }
         if ($currentNet < $prevNet && $currentNet > 0) {
@@ -142,6 +143,7 @@ class DashboardStatsService
             ->groupBy('category_id')
             ->map(function ($ops) {
                 $cat = $ops->first()->category;
+
                 return [
                     'name' => $cat->name,
                     'color' => $cat->color,
@@ -158,6 +160,7 @@ class DashboardStatsService
         return [
             'categories' => $expenses->map(function ($item) use ($total) {
                 $item['percentage'] = $total > 0 ? round(($item['amount'] / $total) * 100, 1) : 0;
+
                 return $item;
             })->values(),
             'total' => $total,
@@ -189,7 +192,7 @@ class DashboardStatsService
         ];
     }
 
-    public function getBudgetsStatus(): \Illuminate\Support\Collection
+    public function getBudgetsStatus(): Collection
     {
         $budgets = Budget::byUser($this->userId)
             ->with(['categories:id,name,color,icon'])
@@ -227,7 +230,7 @@ class DashboardStatsService
                     'remaining' => $remaining,
                     'percentage' => round($percentage, 1),
                     'is_exceeded' => $isExceeded,
-                    'categories' => $budget->categories->map(fn($c) => [
+                    'categories' => $budget->categories->map(fn ($c) => [
                         'name' => $c->name,
                         'color' => $c->color,
                         'icon' => $c->icon,
@@ -238,7 +241,7 @@ class DashboardStatsService
         return $budgets->values();
     }
 
-    public function getGoalsProgress(): \Illuminate\Support\Collection
+    public function getGoalsProgress(): Collection
     {
         return Goal::byUser($this->userId)
             ->where('status', 'pending')
@@ -347,7 +350,7 @@ class DashboardStatsService
             ->with('category:id,name')
             ->get()
             ->groupBy('category_id')
-            ->map(fn($ops) => ['name' => $ops->first()->category->name, 'amount' => $ops->sum('amount')])
+            ->map(fn ($ops) => ['name' => $ops->first()->category->name, 'amount' => $ops->sum('amount')])
             ->sortByDesc('amount');
 
         if ($expensesByCategory->isNotEmpty()) {
@@ -359,14 +362,14 @@ class DashboardStatsService
             ];
         }
 
-        $exceededBudgets = $this->getBudgetsStatus()->filter(fn($b) => $b['is_exceeded']);
+        $exceededBudgets = $this->getBudgetsStatus()->filter(fn ($b) => $b['is_exceeded']);
 
         if ($exceededBudgets->isNotEmpty()) {
             $count = $exceededBudgets->count();
             $insights[] = [
                 'type' => 'warning',
                 'icon' => 'fa-solid fa-triangle-exclamation',
-                'message' => "Excediste {$count} presupuesto" . ($count > 1 ? 's' : '') . " este período.",
+                'message' => "Excediste {$count} presupuesto".($count > 1 ? 's' : '').' este período.',
             ];
         }
 
@@ -388,13 +391,13 @@ class DashboardStatsService
                 $insights[] = [
                     'type' => 'success',
                     'icon' => 'fa-solid fa-chart-line',
-                    'message' => "Gastaste " . abs(round($change, 1)) . "% menos que el mes pasado.",
+                    'message' => 'Gastaste '.abs(round($change, 1)).'% menos que el mes pasado.',
                 ];
             } elseif ($change > 10) {
                 $insights[] = [
                     'type' => 'danger',
                     'icon' => 'fa-solid fa-arrow-trend-up',
-                    'message' => "Tus gastos aumentaron " . abs(round($change, 1)) . "% respecto al mes pasado.",
+                    'message' => 'Tus gastos aumentaron '.abs(round($change, 1)).'% respecto al mes pasado.',
                 ];
             }
         }
@@ -414,7 +417,7 @@ class DashboardStatsService
                 $insights[] = [
                     'type' => 'success',
                     'icon' => 'fa-solid fa-arrow-trend-up',
-                    'message' => "Tus ingresos aumentaron " . abs(round($change, 1)) . "% respecto al mes pasado.",
+                    'message' => 'Tus ingresos aumentaron '.abs(round($change, 1)).'% respecto al mes pasado.',
                 ];
             }
         }
@@ -428,7 +431,7 @@ class DashboardStatsService
             $insights[] = [
                 'type' => 'success',
                 'icon' => 'fa-solid fa-check-circle',
-                'message' => "¡Pagaste {$paidThisPeriod} deuda" . ($paidThisPeriod > 1 ? 's' : '') . " este período!",
+                'message' => "¡Pagaste {$paidThisPeriod} deuda".($paidThisPeriod > 1 ? 's' : '').' este período!',
             ];
         }
 
@@ -440,7 +443,7 @@ class DashboardStatsService
                 $insights[] = [
                     'type' => 'info',
                     'icon' => 'fa-solid fa-scale-balanced',
-                    'message' => "Tienes más operaciones de ingreso que de gasto. ¡Sigue así!",
+                    'message' => 'Tienes más operaciones de ingreso que de gasto. ¡Sigue así!',
                 ];
             }
         }

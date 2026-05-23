@@ -7,8 +7,8 @@ use App\Http\Requests\StoreGoalRequest;
 use App\Http\Requests\UpdateGoalRequest;
 use App\Models\Goal;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
@@ -29,18 +29,18 @@ class GoalController extends Controller
 
         $goalsQuery = $request->user()->goals()
             ->with('category')
-            ->when($search, fn($query) => $query->where('name', 'like', "%{$search}%"))
-            ->when($categoryId, fn($query) => $query->where('category_id', $categoryId))
-            ->when($dateFrom, fn($query) => $query->whereDate('due_date', '>=', $dateFrom))
-            ->when($dateTo, fn($query) => $query->whereDate('due_date', '<=', $dateTo))
-            ->when($status, fn($query) => $query->where('status', $status))
+            ->when($search, fn ($query) => $query->where('name', 'like', "%{$search}%"))
+            ->when($categoryId, fn ($query) => $query->where('category_id', $categoryId))
+            ->when($dateFrom, fn ($query) => $query->whereDate('due_date', '>=', $dateFrom))
+            ->when($dateTo, fn ($query) => $query->whereDate('due_date', '<=', $dateTo))
+            ->when($status, fn ($query) => $query->where('status', $status))
             ->orderBy('due_date');
 
         $goals = $goalsQuery->paginate(10)->withQueryString();
         $goalsCollection = $goalsQuery->get();
 
         $totalTarget = $goalsCollection->sum('target_amount');
-        $totalSaved = $goalsCollection->sum(fn($goal) => $goal->current_amount ?? 0);
+        $totalSaved = $goalsCollection->sum(fn ($goal) => $goal->current_amount ?? 0);
         $totalRemaining = $totalTarget - $totalSaved;
         $totalCount = $goalsCollection->count();
         $completedCount = $goalsCollection->where('status', 'completed')->count();

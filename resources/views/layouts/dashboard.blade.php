@@ -6,10 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Finanzas360') }}</title>
+    <title>{{ config('app.name', 'Laravel') }}</title>
 
-    <link rel="icon" href="img/logo-prueba.png" type="image/x-icon">
-    <link rel="shortcut icon" href="img/logo-prueba.png" type="image/x-icon">
+    <link rel="icon" href="{{ asset('img/logo-prueba.png') }}" type="image/png">
 
     <link rel="preconnect" href="https://fonts.bunny.net">
     <link href="https://fonts.bunny.net/css?family=instrument-sans:400,500,600" rel="stylesheet" />
@@ -28,14 +27,16 @@
       </main>
 
       <!-- Debug toast messages -->
-      @if(session('success'))
-        <div id="toast-success-message" data-message="{{ session('success') }}" style="display:none;">{{ session('success') }}</div>
+      @if (session('success'))
+        <div id="toast-success-message" data-message="{{ session('success') }}" style="display:none;">
+          {{ session('success') }}</div>
       @endif
 
-      @if(session('error'))
-        <div id="toast-error-message" data-message="{{ session('error') }}" style="display:none;">{{ session('error') }}</div>
+      @if (session('error'))
+        <div id="toast-error-message" data-message="{{ session('error') }}" style="display:none;">{{ session('error') }}
+        </div>
       @endif
-    @stack('scripts')
+      @stack('scripts')
   </body>
 
 </html>

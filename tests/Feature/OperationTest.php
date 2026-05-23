@@ -297,7 +297,7 @@ test('filter operations by type', function () {
     $response = $this->actingAs($user)->get(route('dashboard.operations.index', ['type' => 'income']));
 
     $response->assertViewHas('operations', function ($operations) {
-        return $operations->every(fn($op) => $op->type === 'income');
+        return $operations->every(fn ($op) => $op->type === 'income');
     });
 });
 
@@ -313,7 +313,7 @@ test('filter operations by account', function () {
     $response = $this->actingAs($user)->get(route('dashboard.operations.index', ['account_id' => $account1->id]));
 
     $response->assertViewHas('operations', function ($operations) use ($account1) {
-        return $operations->every(fn($op) => $op->account_id === $account1->id);
+        return $operations->every(fn ($op) => $op->account_id === $account1->id);
     });
 });
 

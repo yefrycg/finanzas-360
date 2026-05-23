@@ -1,9 +1,9 @@
 <?php
 
+use App\Models\Account;
 use App\Models\Category;
 use App\Models\Operation;
 use App\Models\User;
-use App\Models\Account;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
 uses(RefreshDatabase::class);
