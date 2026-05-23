@@ -6,26 +6,24 @@
     <div class="grid gap-8 md:grid-cols-2">
       <div
         class="group items-center overflow-hidden rounded-2xl border border-gray-200/70 bg-white/70 shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800/70 dark:bg-gray-950/30 sm:flex">
-        <a href="#">
           <img class="h-52 w-full object-cover sm:h-44 sm:w-44"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/bonnie-green.png" alt="Bonnie Avatar">
-        </a>
+            src="{{ asset('img/yefry.jpg') }}" alt="Yefry Avatar">
         <div class="p-6">
-          <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Yefry Cárdenas
-              González</a></h3>
+          <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Yefry Cárdenas
+              González</h3>
           <span class="text-gray-500 dark:text-gray-400">Desarrollador Backend & Líder del Proyecto</span>
-          <p class="mb-4 mt-3 font-light text-gray-600 dark:text-gray-300">Encargado del diseño y desarrollo de la
-            lógica del sistema, la estructura de la base de datos y la implementación del backend utilizando Laravel.
+          <p class="mb-4 mt-3 font-light text-gray-600 dark:text-gray-300">
+            Encargado de la arquitectura del sistema, desarrollo de la lógica de negocio y gestión del proyecto.
           </p>
           <ul class="flex space-x-4 sm:mt-0">
-            <li><a href="#"
+            <li><a href="{{ url('https://www.facebook.com/share/1BTYw4DsgR/') }}"
                 class="text-gray-500 transition-colors duration-200 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white"><svg
                   class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill-rule="evenodd"
                     d="M22 12c0-5.523-4.477-10-10-10S2 6.477 2 12c0 4.991 3.657 9.128 8.438 9.878v-6.987h-2.54V12h2.54V9.797c0-2.506 1.492-3.89 3.777-3.89 1.094 0 2.238.195 2.238.195v2.46h-1.26c-1.243 0-1.63.771-1.63 1.562V12h2.773l-.443 2.89h-2.33v6.988C18.343 21.128 22 16.991 22 12z"
                     clip-rule="evenodd" />
                 </svg></a></li>
-            <li><a href="#"
+            <li><a href="{{ url('https://github.com/yefrycg') }}"
                 class="text-gray-500 transition-colors duration-200 hover:text-primary-700 dark:text-gray-400 dark:hover:text-white"><svg
                   class="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fill-rule="evenodd"
@@ -38,13 +36,11 @@
 
       <div
         class="group items-center overflow-hidden rounded-2xl border border-gray-200/70 bg-white/70 shadow-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:shadow-md dark:border-gray-800/70 dark:bg-gray-950/30 sm:flex">
-        <a href="#">
           <img class="h-52 w-full object-cover sm:h-44 sm:w-44"
-            src="https://flowbite.s3.amazonaws.com/blocks/marketing-ui/avatars/jese-leos.png" alt="Jese Avatar">
-        </a>
+            src="{{ asset('img/hector.jpg') }}" alt="Héctor Avatar">
         <div class="p-6">
-          <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white"><a href="#">Héctor Arzuaga
-              Corcho</a></h3>
+          <h3 class="text-xl font-bold tracking-tight text-gray-900 dark:text-white">Héctor Arzuaga
+              Corcho</h3>
           <span class="text-gray-500 dark:text-gray-400">Desarrollador Frontend & Diseño UI</span>
           <p class="mb-4 mt-3 font-light text-gray-600 dark:text-gray-300">Responsable del diseño de la interfaz de
             usuario y la experiencia visual del sistema.</p>
