@@ -47,11 +47,11 @@
     <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
       <div>
         <div class="flex items-center gap-3">
-          <div class="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
+          <div class="w-10 h-10 rounded-xl bg-linear-to-br from-blue-500 to-blue-600 flex items-center justify-center shadow-lg shadow-blue-500/30">
             <i class="fas fa-chart-pie text-white text-lg"></i>
           </div>
           <h1 class="text-2xl md:text-3xl font-bold text-gray-900 dark:text-white">
-            {{ $greeting }}, {{ auth()->user()->name }} <span class="inline-block">👋</span>
+            {{ $greeting }}, {{ auth()->user()->name }} <span class="inline-block"></span>
           </h1>
         </div>
         <p class="text-gray-500 dark:text-gray-400 mt-1">{{ now()->locale('es')->isoFormat('dddd, D [de] MMMM [de] YYYY') }}</p>
@@ -99,7 +99,7 @@
               @endif
             </p>
           </div>
-          <div class="w-10 h-10 rounded-lg bg-gradient-to-br {{ $iconData['gradient'] }} flex items-center justify-center shadow-md">
+          <div class="w-10 h-10 rounded-lg bg-linear-to-br {{ $iconData['gradient'] }} flex items-center justify-center shadow-md">
             <i class="{{ $iconData['icon'] }} text-white text-sm"></i>
           </div>
         </div>
@@ -146,7 +146,7 @@
           @foreach ($expensesByCategory['categories']->take(5) as $cat)
             <div class="flex items-center justify-between text-sm">
               <div class="flex items-center gap-2">
-                <span class="w-3 h-3 rounded-full flex-shrink-0" style="background-color: {{ $cat['color'] }}"></span>
+                <span class="w-3 h-3 rounded-full shrink-0" style="background-color: {{ $cat['color'] }}"></span>
                 <span class="text-gray-700 dark:text-gray-300 truncate">{{ $cat['name'] }}</span>
               </div>
               <span class="text-gray-500 dark:text-gray-400">{{ $cat['percentage'] }}%</span>
@@ -294,7 +294,7 @@
                 <span>${{ number_format($goal['target_amount'], 2) }}</span>
               </div>
               <div class="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
-                <div class="h-2 rounded-full progress-bar-animated bg-gradient-to-r from-primary-500 to-primary-600"
+                <div class="h-2 rounded-full progress-bar-animated bg-linear-to-r from-primary-500 to-primary-600"
                   style="width: {{ min($goal['progress'], 100) }}%"></div>
               </div>
               @if ($goal['due_date'])
@@ -455,7 +455,7 @@
   @if (count($insights) > 0)
     <div class="bg-white dark:bg-gray-800 rounded-xl shadow-sm border border-gray-100 dark:border-gray-700 p-5">
       <div class="flex items-center gap-2 mb-4">
-        <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-amber-400 to-orange-500 flex items-center justify-center">
+        <div class="w-8 h-8 rounded-lg bg-linear-to-r from-amber-400 to-orange-500 flex items-center justify-center">
           <i class="fas fa-lightbulb text-white text-sm"></i>
         </div>
         <h2 class="text-lg font-semibold text-gray-900 dark:text-white">Perspectivas Financieras</h2>
@@ -463,8 +463,8 @@
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
         @foreach ($insights as $insight)
-          <div class="insight-card flex items-start gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
-            <div class="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0
+          <div class="insight-card flex items-center gap-3 p-4 bg-gray-50 dark:bg-gray-700/50 rounded-xl border border-gray-100 dark:border-gray-600">
+            <div class="w-8 h-8 rounded-lg flex items-center justify-center shrink-0
               @if ($insight['type'] === 'success') bg-green-100 text-green-600 dark:bg-green-900/30 dark:text-green-400
               @elseif ($insight['type'] === 'warning') bg-amber-100 text-amber-600 dark:bg-amber-900/30 dark:text-amber-400
               @elseif ($insight['type'] === 'danger') bg-red-100 text-red-600 dark:bg-red-900/30 dark:text-red-400
@@ -483,7 +483,7 @@
   <script>
     document.addEventListener('DOMContentLoaded', function() {
       const isDark = document.documentElement.classList.contains('dark');
-      const textColor = isDark ? '#e5e7eb' : '#374151';
+      const textColor = isDark ? '#e5e7eb' : '#99a1af';
       const gridColor = isDark ? 'rgba(255,255,255,0.1)' : 'rgba(0,0,0,0.1)';
 
       Chart.defaults.color = textColor;

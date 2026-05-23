@@ -6,25 +6,30 @@
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(100%);
     }
+
     table i[class*="fa-"] {
       display: inline-block !important;
       visibility: visible !important;
       opacity: 1 !important;
     }
+
     #icon-suggestions,
     #update-icon-suggestions {
       color: #ffffff;
     }
+
     #icon-suggestions i,
     #icon-suggestions span,
     #update-icon-suggestions i,
     #update-icon-suggestions span {
       color: #ffffff !important;
     }
+
     #icon-suggestions div,
     #update-icon-suggestions div {
       color: #ffffff;
     }
+
     #icon-suggestions div:hover,
     #update-icon-suggestions div:hover {
       background-color: rgba(255, 255, 255, 0.1);
@@ -35,7 +40,7 @@
 @section('content')
   <div class="mb-6">
     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Categorías</h1>
-    <p class="text-gray-500 dark:text-gray-400">Gestiona las categorías de tus transacciones</p>
+    <p class="text-gray-500 dark:text-gray-400">Gestiona las categorías de tus operaciones financieras</p>
   </div>
 
   <section class="bg-gray-50 dark:bg-gray-900 antialiased">
@@ -169,7 +174,8 @@
                     @endif
                   </td>
                   <td class="px-4 py-3 text-center">
-                    <span class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: {{ $category->color }}20">
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center"
+                      style="background-color: {{ $category->color }}20">
                       <i class="{{ $category->icon }} text-base" style="color: {{ $category->color }}"></i>
                     </span>
                   </td>
@@ -351,77 +357,120 @@
     <div class="relative p-4 w-full max-w-2xl max-h-full">
       <div
         class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
+
         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Actualizar Categoría</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">
+            Actualizar Categoría
+          </h3>
+
           <button type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
-            data-modal-toggle="updateCategoryModal">
-            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+            data-modal-target="updateCategoryModal" data-modal-toggle="updateCategoryModal">
+
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
               xmlns="http://www.w3.org/2000/svg">
               <path fill-rule="evenodd"
                 d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
                 clip-rule="evenodd" />
             </svg>
-            <span class="sr-only">Close modal</span>
+
+            <span class="sr-only">Cerrar</span>
           </button>
         </div>
+
         <form id="updateForm" action="" method="POST">
           @csrf
           @method('PUT')
+
           <div class="grid gap-4 mb-4 sm:grid-cols-2">
+
             <div>
-              <label for="update-name"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Nombre</label>
+              <label for="update-name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Nombre
+              </label>
+
               <input type="text" name="name" id="update-name"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 placeholder="Nombre de la categoría" required>
             </div>
+
             <div>
-              <label for="update-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Tipo</label>
+              <label for="update-type" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Tipo
+              </label>
+
               <select name="type" id="update-type"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required>
+
                 <option value="income">Ingreso</option>
                 <option value="expense">Gasto</option>
               </select>
             </div>
+
             <div>
-              <label for="update-color-picker"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Color</label>
+              <label for="update-color-picker" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Color
+              </label>
+
               <div class="flex items-center gap-3">
+
                 <input type="color" id="update-color-picker"
                   class="h-12 w-12 p-1 rounded-lg border-2 border-gray-300 cursor-pointer hover:border-primary-500 dark:border-gray-600 dark:hover:border-primary-500"
                   oninput="document.getElementById('update-color').value = this.value">
+
                 <input type="text" name="color" id="update-color"
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   placeholder="#3B82F6" required>
               </div>
             </div>
+
             <div>
-              <label for="update-icon-search"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Icono</label>
+              <label for="update-icon-search" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Icono
+              </label>
+
               <div class="relative">
+
                 <input type="text" id="update-icon-search" placeholder="Buscar icono..."
                   class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                   autocomplete="off">
+
                 <input type="hidden" name="icon" id="update-selected-icon" value="">
+
                 <div id="update-icon-suggestions"
                   class="hidden absolute z-20 w-full mt-1 bg-white border border-gray-300 rounded-lg shadow-lg dark:bg-gray-700 dark:border-gray-600 max-h-60 overflow-y-auto">
                 </div>
+
                 <div class="mt-2 flex items-center gap-2">
-                  <span class="text-sm text-gray-500 dark:text-gray-400">Seleccionado:</span>
+                  <span class="text-sm text-gray-500 dark:text-gray-400">
+                    Seleccionado:
+                  </span>
+
                   <span id="update-selected-badge"
                     class="inline-flex items-center gap-1 px-2 py-1 bg-primary-100 text-primary-700 rounded dark:bg-primary-900 dark:text-primary-300">
+
                     <i id="update-selected-icon-preview" class=""></i>
+
                     <span id="update-selected-icon-name"></span>
                   </span>
                 </div>
               </div>
             </div>
           </div>
+
           <div class="flex items-center space-x-4">
+
             <button type="submit" id="updateCategorySubmitBtn"
-              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Actualizar</button>
+              class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">
+              Actualizar
+            </button>
+
+            <button type="button" data-modal-target="updateCategoryModal" data-modal-toggle="updateCategoryModal"
+              class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+
+              Cancelar
+            </button>
           </div>
         </form>
       </div>
@@ -431,43 +480,68 @@
   <!-- Read modal -->
   <div id="readCategoryModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
+
     <div class="relative p-4 w-full max-w-xl max-h-full">
+
       <div
         class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
-        <div class="flex justify-between mb-4 rounded-t sm:mb-5">
-          <div class="text-lg text-gray-900 md:text-xl dark:text-white">
-            <h3 class="font-semibold" id="read-name"></h3>
-          </div>
-          <div>
-            <button type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="readCategoryModal">
-              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Close modal</span>
-            </button>
-          </div>
+
+        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="read-name"></h3>
+
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-target="readCategoryModal" data-modal-toggle="readCategoryModal">
+
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+
+            <span class="sr-only">Cerrar</span>
+          </button>
         </div>
+
         <dl>
-          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Tipo</dt>
-          <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400" id="read-type"></dd>
-          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Color</dt>
+          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+            Tipo
+          </dt>
+
+          <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400" id="read-type">
+          </dd>
+
+          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+            Color
+          </dt>
+
           <dd class="mb-4 font-light flex items-center text-gray-500 sm:mb-5 dark:text-gray-400">
-            <span class="w-6 h-6 rounded-full inline-block mr-2" id="read-color"></span>
+
+            <span class="w-6 h-6 rounded-full inline-block mr-2" id="read-color">
+            </span>
+
             <span id="read-color-text"></span>
           </dd>
-          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Icono</dt>
-          <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"><i id="read-icon" class="text-2xl"></i>
+
+          <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">
+            Icono
+          </dt>
+
+          <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400">
+            <i id="read-icon" class="text-2xl"></i>
           </dd>
         </dl>
-        <div class="flex justify-between items-center">
-          <button type="button"
-            class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
-            data-modal-toggle="readCategoryModal">Cerrar</button>
+
+        <div class="flex justify-end items-center pt-4 border-t dark:border-gray-600">
+
+          <button type="button" data-modal-target="readCategoryModal" data-modal-toggle="readCategoryModal"
+            class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+
+            Cerrar
+          </button>
         </div>
       </div>
     </div>
@@ -477,7 +551,8 @@
   <div id="deleteCategoryModal" tabindex="-1" aria-hidden="true"
     class="hidden fixed inset-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full overflow-y-auto">
     <div class="absolute inset-0 bg-gray-900/50" onclick="closeModal('deleteCategoryModal')"></div>
-    <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
+    <div
+      class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
       <button type="button"
         class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         data-modal-toggle="deleteCategoryModal">
@@ -582,7 +657,8 @@
 
             filtered.forEach(icon => {
               const div = document.createElement('div');
-              div.className = 'px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center gap-2';
+              div.className =
+                'px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center gap-2';
               div.innerHTML = '<i class="' + icon[0] + ' w-5"></i><span>' + icon[1] + '</span>';
               div.addEventListener('click', function() {
                 selectedIconInput.value = icon[0];
@@ -631,7 +707,8 @@
 
             filtered.forEach(icon => {
               const div = document.createElement('div');
-              div.className = 'px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center gap-2';
+              div.className =
+                'px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 cursor-pointer flex items-center gap-2';
               div.innerHTML = '<i class="' + icon[0] + ' w-5"></i><span>' + icon[1] + '</span>';
               div.addEventListener('click', function() {
                 updateSelectedIconInput.value = icon[0];
@@ -656,6 +733,8 @@
         // Update modal - load existing data
         document.querySelectorAll('[data-modal-target="updateCategoryModal"][data-modal-toggle]').forEach(button => {
           button.addEventListener('click', function() {
+            if (!this.dataset.id) return;
+
             const id = this.dataset.id;
             const name = this.dataset.name;
             const type = this.dataset.type;
@@ -680,6 +759,8 @@
         // Read modal
         document.querySelectorAll('[data-modal-target="readCategoryModal"][data-modal-toggle]').forEach(button => {
           button.addEventListener('click', function() {
+            if (!this.dataset.name) return;
+
             const name = this.dataset.name;
             const type = this.dataset.type;
             const color = this.dataset.color;
@@ -696,6 +777,8 @@
         // Delete modal
         document.querySelectorAll('[data-modal-target="deleteCategoryModal"][data-modal-toggle]').forEach(button => {
           button.addEventListener('click', function() {
+            if (!this.dataset.id) return;
+
             const id = this.dataset.id;
             const name = this.dataset.name;
 
