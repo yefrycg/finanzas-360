@@ -19,7 +19,7 @@ class StoreOperationRequest extends FormRequest
         $user = $this->user();
 
         return [
-            'amount' => ['required', 'numeric', 'min:0.01'],
+            'amount' => ['required', 'numeric', 'min:0.01', 'max:99999999999999.99'],
             'date_time' => ['required', 'date'],
             'type' => ['required', 'in:income,expense'],
             'note' => ['nullable', 'string', 'max:500'],

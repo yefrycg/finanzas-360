@@ -5,8 +5,8 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreCategoryRequest;
 use App\Http\Requests\UpdateCategoryRequest;
 use App\Models\Category;
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
@@ -23,8 +23,8 @@ class CategoryController extends Controller
         $type = $request->string('type')->toString();
 
         $categories = $request->user()->categories()
-            ->when($search !== '', fn($query) => $query->where('name', 'like', "%{$search}%"))
-            ->when($type !== '', fn($query) => $query->where('type', $type))
+            ->when($search !== '', fn ($query) => $query->where('name', 'like', "%{$search}%"))
+            ->when($type !== '', fn ($query) => $query->where('type', $type))
             ->orderBy('name')
             ->paginate(10)
             ->withQueryString();

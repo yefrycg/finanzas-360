@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Account extends Model
 {
     /** @use HasFactory<AccountFactory> */
-    use HasFactory, BelongsToUser;
+    use BelongsToUser, HasFactory;
 
     protected static function boot(): void
     {

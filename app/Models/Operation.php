@@ -13,7 +13,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 class Operation extends Model
 {
     /** @use HasFactory<OperationFactory> */
-    use HasFactory, BelongsToUser;
+    use BelongsToUser, HasFactory;
 
     protected function casts(): array
     {
