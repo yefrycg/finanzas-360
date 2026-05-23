@@ -5,6 +5,7 @@
     input[type="datetime-local"]::-webkit-calendar-picker-indicator {
       filter: invert(100%);
     }
+
     table i[class*="fa-"] {
       display: inline-block !important;
       visibility: visible !important;
@@ -16,7 +17,7 @@
 @section('content')
   <div class="mb-6">
     <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Operaciones</h1>
-    <p class="text-gray-500 dark:text-gray-400">Registra y visualiza tus transacciones</p>
+    <p class="text-gray-500 dark:text-gray-400">Registra y visualiza tus operaciones financieras</p>
   </div>
 
   <section class="bg-gray-50 dark:bg-gray-900 antialiased">
@@ -160,7 +161,9 @@
           </div>
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <p class="text-sm text-gray-500 dark:text-gray-400">Balance neto</p>
-            <p class="text-2xl font-bold {{ $totalIncome - $totalExpense >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">${{ number_format($totalIncome - $totalExpense, 2) }}</p>
+            <p
+              class="text-2xl font-bold {{ $totalIncome - $totalExpense >= 0 ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400' }}">
+              ${{ number_format($totalIncome - $totalExpense, 2) }}</p>
           </div>
           <div class="bg-gray-50 dark:bg-gray-700 rounded-lg p-4">
             <p class="text-sm text-gray-500 dark:text-gray-400">Total operaciones</p>
@@ -243,14 +246,11 @@
                       <ul class="py-1 text-sm" aria-labelledby="operation-{{ $operation->id }}-dropdown-button">
                         <li>
                           <button type="button" data-modal-target="updateOperationModal"
-                            data-modal-toggle="updateOperationModal"
-                            data-id="{{ $operation->id }}"
+                            data-modal-toggle="updateOperationModal" data-id="{{ $operation->id }}"
                             data-amount="{{ $operation->amount }}"
                             data-date-time="{{ $operation->date_time->format('Y-m-d\TH:i') }}"
-                            data-type="{{ $operation->type }}"
-                            data-category-id="{{ $operation->category_id }}"
-                            data-account-id="{{ $operation->account_id }}"
-                            data-note="{{ $operation->note ?? '' }}"
+                            data-type="{{ $operation->type }}" data-category-id="{{ $operation->category_id }}"
+                            data-account-id="{{ $operation->account_id }}" data-note="{{ $operation->note ?? '' }}"
                             data-category-name="{{ $operation->category->name }}"
                             data-category-color="{{ $operation->category->color }}"
                             data-category-icon="{{ $operation->category->icon }}"
@@ -269,10 +269,8 @@
                         </li>
                         <li>
                           <button type="button" data-modal-target="readOperationModal"
-                            data-modal-toggle="readOperationModal"
-                            data-id="{{ $operation->id }}"
-                            data-amount="{{ $operation->amount }}"
-                            data-type="{{ $operation->type }}"
+                            data-modal-toggle="readOperationModal" data-id="{{ $operation->id }}"
+                            data-amount="{{ $operation->amount }}" data-type="{{ $operation->type }}"
                             data-category-name="{{ $operation->category->name }}"
                             data-category-color="{{ $operation->category->color }}"
                             data-category-icon="{{ $operation->category->icon }}"
@@ -293,11 +291,9 @@
                         </li>
                         <li>
                           <button type="button" data-modal-target="deleteOperationModal"
-                            data-modal-toggle="deleteOperationModal"
-                            data-id="{{ $operation->id }}"
-                            data-name="{{ $operation->category->name }} - @if($operation->type === 'income')+@else-@endif${{ number_format($operation->amount, 2) }}"
-                            data-amount="{{ $operation->amount }}"
-                            data-type="{{ $operation->type }}"
+                            data-modal-toggle="deleteOperationModal" data-id="{{ $operation->id }}"
+                            data-name="{{ $operation->category->name }} - @if ($operation->type === 'income') +@else- @endif${{ number_format($operation->amount, 2) }}"
+                            data-amount="{{ $operation->amount }}" data-type="{{ $operation->type }}"
                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 text-red-500 dark:hover:text-red-400">
                             <svg class="w-4 h-4 mr-2" viewbox="0 0 14 15" fill="none"
                               xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
@@ -313,7 +309,8 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No se encontraron operaciones.</td>
+                  <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No se encontraron
+                    operaciones.</td>
                 </tr>
               @endforelse
             </tbody>
@@ -368,7 +365,8 @@
               @enderror
             </div>
             <div>
-              <label for="date_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha y Hora</label>
+              <label for="date_time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha y
+                Hora</label>
               <input type="datetime-local" name="date_time" id="date_time" value="{{ old('date_time') }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required>
@@ -397,10 +395,12 @@
                 required>
                 <option value="">Seleccionar cuenta</option>
                 @foreach ($accounts as $account)
-                  <option value="{{ $account->id }}" {{ old('account_id') == $account->id ? 'selected' : '' }}>
+                  <option value="{{ $account->id }}" data-balance="{{ $account->current_balance }}"
+                    {{ old('account_id') == $account->id ? 'selected' : '' }}>
                     {{ $account->name }}</option>
                 @endforeach
               </select>
+              <p id="create-account-balance" class="mt-1 text-sm text-gray-500 dark:text-gray-400 hidden"></p>
               @error('account_id')
                 <p class="mt-1 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
               @enderror
@@ -471,7 +471,8 @@
                 placeholder="0.00" required>
             </div>
             <div>
-              <label for="update-date-time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha y Hora</label>
+              <label for="update-date-time" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Fecha y
+                Hora</label>
               <input type="datetime-local" name="date_time" id="update-date-time"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required>
@@ -491,10 +492,13 @@
               <select name="account_id" id="update-account-id"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-500 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required>
+                <option value="">Seleccionar cuenta</option>
                 @foreach ($accounts as $account)
-                  <option value="{{ $account->id }}">{{ $account->name }}</option>
+                  <option value="{{ $account->id }}" data-balance="{{ $account->current_balance }}">
+                    {{ $account->name }}</option>
                 @endforeach
               </select>
+              <p id="update-account-balance" class="mt-1 text-sm text-gray-500 dark:text-gray-400 hidden"></p>
             </div>
             <div class="sm:col-span-2">
               <label for="update-category-id"
@@ -529,7 +533,7 @@
       <div
         class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
-          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Ver Operación</h3>
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Detalle Operación</h3>
           <button type="button"
             class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
             data-modal-target="readOperationModal" data-modal-toggle="readOperationModal">
@@ -563,6 +567,46 @@
       </div>
     </div>
   </div>
+
+  <!-- Delete modal -->
+  <div id="deleteOperationModal" tabindex="-1" aria-hidden="true"
+    class="hidden fixed inset-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full overflow-y-auto">
+    <div class="absolute inset-0 bg-gray-900/50" onclick="closeModal('deleteOperationModal')"></div>
+    <div
+      class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
+      <button type="button"
+        class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+        data-modal-toggle="deleteOperationModal">
+        <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+          xmlns="http://www.w3.org/2000/svg">
+          <path fill-rule="evenodd"
+            d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+            clip-rule="evenodd" />
+        </svg>
+        <span class="sr-only">Cerrar</span>
+      </button>
+      <svg class="text-gray-400 dark:text-gray-500 w-11 h-11 mb-3.5 mx-auto" aria-hidden="true" fill="currentColor"
+        viewbox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+        <path fill-rule="evenodd"
+          d="M9 2a1 1 0 00-.894.553L7.382 4H4a1 1 0 000 2v10a2 2 0 002 2h8a2 2 0 002-2V6a1 1 0 100-2h-3.382l-.724-1.447A1 1 0 0011 2H9zM7 8a1 1 0 012 0v6a1 1 0 11-2 0V8zm5-1a1 1 0 00-1 1v6a1 1 0 102 0V8a1 1 0 00-1-1z"
+          clip-rule="evenodd" />
+      </svg>
+      <p class="mb-4 text-center text-gray-500 dark:text-gray-300">¿Estás seguro de que quieres eliminar la operación
+        "<span id="delete-operation-name" class="font-semibold text-gray-800 dark:text-white"></span>"?</p>
+      <div class="flex justify-center items-center space-x-4">
+        <button data-modal-toggle="deleteOperationModal" type="button"
+          class="py-2 px-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-200 hover:bg-gray-100 focus:ring-4 focus:outline-none focus:ring-primary-300 hover:text-gray-900 focus:z-10 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-500 dark:hover:text-white dark:hover:bg-gray-600 dark:focus:ring-gray-600">No,
+          cancelar</button>
+        <form id="deleteOperationForm" method="POST" class="inline">
+          @csrf
+          @method('DELETE')
+          <button type="submit"
+            class="py-2 px-3 text-sm font-medium text-center text-white bg-red-600 rounded-lg hover:bg-red-700 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-500 dark:hover:bg-red-600 dark:focus:ring-red-900">Sí,
+            eliminar</button>
+        </form>
+      </div>
+    </div>
+  </div>
 @endsection
 
 @push('scripts')
@@ -587,6 +631,33 @@
       const updateCategorySelect = document.getElementById('update-category-id');
       const filterTypeSelect = document.querySelector('select[name="type"]');
       const filterCategorySelect = document.getElementById('filter-category-id');
+
+      const accountSelect = document.getElementById('account_id');
+      const createAccountBalance = document.getElementById('create-account-balance');
+      const updateAccountSelect = document.getElementById('update-account-id');
+      const updateAccountBalance = document.getElementById('update-account-balance');
+
+      function updateBalanceDisplay(selectElement, balanceElement) {
+        if (!selectElement || !balanceElement) return;
+        const selectedOption = selectElement.options[selectElement.selectedIndex];
+        if (selectedOption && selectedOption.dataset.balance !== undefined) {
+          const balance = parseFloat(selectedOption.dataset.balance);
+          balanceElement.textContent = `Saldo disponible: $${balance.toFixed(2)}`;
+          balanceElement.classList.remove('hidden');
+        } else {
+          balanceElement.classList.add('hidden');
+        }
+      }
+
+      if (accountSelect) {
+        accountSelect.addEventListener('change', () => updateBalanceDisplay(accountSelect, createAccountBalance));
+        updateBalanceDisplay(accountSelect, createAccountBalance);
+      }
+
+      if (updateAccountSelect) {
+        updateAccountSelect.addEventListener('change', () => updateBalanceDisplay(updateAccountSelect,
+          updateAccountBalance));
+      }
 
       function filterCategories(type, targetSelect, selectedId = null) {
         targetSelect.innerHTML = '<option value="">Seleccionar categoría</option>';
@@ -639,13 +710,15 @@
       document.querySelectorAll('[data-modal-target="updateOperationModal"][data-modal-toggle]').forEach(button => {
         button.addEventListener('click', function() {
           const id = this.dataset.id;
-          document.getElementById('updateOperationForm').action = updateUrlTemplate.replace('__OPERATION__', id);
+          document.getElementById('updateOperationForm').action = updateUrlTemplate.replace('__OPERATION__',
+            id);
           document.getElementById('update-amount').value = this.dataset.amount;
           document.getElementById('update-date-time').value = this.dataset.dateTime;
           document.getElementById('update-type').value = this.dataset.type;
           document.getElementById('update-note').value = this.dataset.note;
           document.getElementById('update-account-id').value = this.dataset.accountId;
           filterCategories(this.dataset.type, updateCategorySelect, this.dataset.categoryId);
+          updateBalanceDisplay(updateAccountSelect, updateAccountBalance);
         });
       });
 
@@ -654,15 +727,17 @@
           const type = this.dataset.type;
           const amount = parseFloat(this.dataset.amount).toFixed(2);
           document.getElementById('read-type').textContent = type === 'income' ? 'Ingreso' : 'Gasto';
-          document.getElementById('read-type').className = type === 'income'
-            ? 'mb-4 font-light text-green-600 sm:mb-5 dark:text-green-400'
-            : 'mb-4 font-light text-red-600 sm:mb-5 dark:text-red-400';
+          document.getElementById('read-type').className = type === 'income' ?
+            'mb-4 font-light text-green-600 sm:mb-5 dark:text-green-400' :
+            'mb-4 font-light text-red-600 sm:mb-5 dark:text-red-400';
           document.getElementById('read-amount').textContent = (type === 'income' ? '+' : '-') + '$' + amount;
-          document.getElementById('read-amount').className = type === 'income'
-            ? 'mb-4 font-light text-green-600 sm:mb-5 dark:text-green-400 text-lg font-bold'
-            : 'mb-4 font-light text-red-600 sm:mb-5 dark:text-red-400 text-lg font-bold';
-          document.getElementById('read-category').innerHTML = `<span class="inline-flex items-center gap-2"><span class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: ${this.dataset.categoryColor}20"><i class="${this.dataset.categoryIcon}" style="color: ${this.dataset.categoryColor}"></i></span>${this.dataset.categoryName}</span>`;
-          document.getElementById('read-account').innerHTML = `<span class="inline-flex items-center gap-2"><span class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: ${this.dataset.accountColor}20"><i class="${this.dataset.accountIcon}" style="color: ${this.dataset.accountColor}"></i></span>${this.dataset.accountName}</span>`;
+          document.getElementById('read-amount').className = type === 'income' ?
+            'mb-4 font-light text-green-600 sm:mb-5 dark:text-green-400 text-lg font-bold' :
+            'mb-4 font-light text-red-600 sm:mb-5 dark:text-red-400 text-lg font-bold';
+          document.getElementById('read-category').innerHTML =
+            `<span class="inline-flex items-center gap-2"><span class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: ${this.dataset.categoryColor}20"><i class="${this.dataset.categoryIcon}" style="color: ${this.dataset.categoryColor}"></i></span>${this.dataset.categoryName}</span>`;
+          document.getElementById('read-account').innerHTML =
+            `<span class="inline-flex items-center gap-2"><span class="w-6 h-6 rounded-full flex items-center justify-center" style="background-color: ${this.dataset.accountColor}20"><i class="${this.dataset.accountIcon}" style="color: ${this.dataset.accountColor}"></i></span>${this.dataset.accountName}</span>`;
           const date = new Date(this.dataset.dateTime);
           document.getElementById('read-date-time').textContent = date.toLocaleString('en-GB');
           document.getElementById('read-note').textContent = this.dataset.note || '—';
@@ -673,7 +748,8 @@
         button.addEventListener('click', function() {
           const id = this.dataset.id;
           const name = this.dataset.name;
-          document.getElementById('deleteOperationForm').action = deleteUrlTemplate.replace('__OPERATION__', id);
+          document.getElementById('deleteOperationForm').action = deleteUrlTemplate.replace('__OPERATION__',
+            id);
           document.getElementById('delete-operation-name').textContent = name;
         });
       });

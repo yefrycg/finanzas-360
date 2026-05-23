@@ -5,6 +5,7 @@
     input[type="date"]::-webkit-calendar-picker-indicator {
       filter: invert(100%);
     }
+
     table i[class*="fa-"] {
       display: inline-block !important;
       visibility: visible !important;
@@ -99,16 +100,16 @@
                         {{ request('type') === 'checking_account' ? 'checked' : '' }}
                         class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         onchange="this.closest('form').submit()">
-                      <label for="type-checking"
-                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Cuenta Corriente</label>
+                      <label for="type-checking" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Cuenta
+                        Corriente</label>
                     </li>
                     <li class="flex items-center">
                       <input id="type-credit" type="radio" name="type" value="credit_card"
                         {{ request('type') === 'credit_card' ? 'checked' : '' }}
                         class="w-4 h-4 bg-gray-100 border-gray-300 text-primary-600 focus:ring-primary-500 dark:focus:ring-primary-600 dark:ring-offset-gray-700 focus:ring-2 dark:bg-gray-600 dark:border-gray-500"
                         onchange="this.closest('form').submit()">
-                      <label for="type-credit"
-                        class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Tarjeta de Crédito</label>
+                      <label for="type-credit" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-100">Tarjeta
+                        de Crédito</label>
                     </li>
                     <li class="flex items-center">
                       <input id="type-savings" type="radio" name="type" value="savings_account"
@@ -167,11 +168,11 @@
                   <td class="px-4 py-3">
                     @php
                       $typeClasses = [
-                        'general_account' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
-                        'cash' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-                        'checking_account' => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
-                        'credit_card' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
-                        'savings_account' => 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
+                          'general_account' => 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300',
+                          'cash' => 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+                          'checking_account' => 'bg-blue-100 text-blue-800 dark:bg-blue-900 dark:text-blue-300',
+                          'credit_card' => 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+                          'savings_account' => 'bg-purple-100 text-purple-800 dark:bg-purple-900 dark:text-purple-300',
                       ];
                     @endphp
                     <span class="text-xs font-medium px-2.5 py-0.5 rounded {{ $typeClasses[$account->type] ?? '' }}">
@@ -182,8 +183,10 @@
                     ${{ number_format($account->current_balance, 2) }}
                   </td>
                   <td class="px-4 py-3">
-                    <span class="w-8 h-8 rounded-full flex items-center justify-center" style="background-color: {{ $account->color }}20; display: inline-flex !important;">
-                      <i class="{{ $account->icon }} text-base" style="color: {{ $account->color }}; display: inline-block !important;"></i>
+                    <span class="w-8 h-8 rounded-full flex items-center justify-center"
+                      style="background-color: {{ $account->color }}20; display: inline-flex !important;">
+                      <i class="{{ $account->icon }} text-base"
+                        style="color: {{ $account->color }}; display: inline-block !important;"></i>
                     </span>
                   </td>
                   <td class="px-4 py-3 flex items-center justify-end overflow-visible">
@@ -205,8 +208,8 @@
                             data-modal-toggle="updateAccountModal" data-id="{{ $account->id }}"
                             data-name="{{ $account->name }}" data-type="{{ $account->type }}"
                             data-current-balance="{{ $account->current_balance }}"
-                            data-credit-limit="{{ $account->credit_limit }}"
-                            data-color="{{ $account->color }}" data-icon="{{ $account->icon }}"
+                            data-credit-limit="{{ $account->credit_limit }}" data-color="{{ $account->color }}"
+                            data-icon="{{ $account->icon }}"
                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20"
                               fill="currentColor" aria-hidden="true">
@@ -222,8 +225,8 @@
                             data-modal-toggle="readAccountModal" data-id="{{ $account->id }}"
                             data-name="{{ $account->name }}" data-type="{{ $account->type }}"
                             data-current-balance="{{ $account->current_balance }}"
-                            data-credit-limit="{{ $account->credit_limit }}"
-                            data-color="{{ $account->color }}" data-icon="{{ $account->icon }}"
+                            data-credit-limit="{{ $account->credit_limit }}" data-color="{{ $account->color }}"
+                            data-icon="{{ $account->icon }}"
                             class="flex w-full items-center py-2 px-4 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white text-gray-700 dark:text-gray-200">
                             <svg class="w-4 h-4 mr-2" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 20 20"
                               fill="currentColor" aria-hidden="true">
@@ -253,7 +256,8 @@
                 </tr>
               @empty
                 <tr>
-                  <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No se encontraron cuentas.</td>
+                  <td colspan="7" class="px-4 py-8 text-center text-gray-500 dark:text-gray-400">No se encontraron
+                    cuentas.</td>
                 </tr>
               @endforelse
             </tbody>
@@ -278,7 +282,8 @@
   <div id="createAccountModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
-      <div class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
+      <div
+        class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Crear Cuenta</h3>
           <button type="button"
@@ -311,19 +316,23 @@
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-500 focus:border-primary-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
                 required>
                 <option value="">Seleccionar tipo</option>
-                <option value="general_account" {{ old('type') === 'general_account' ? 'selected' : '' }}>General</option>
+                <option value="general_account" {{ old('type') === 'general_account' ? 'selected' : '' }}>General
+                </option>
                 <option value="cash" {{ old('type') === 'cash' ? 'selected' : '' }}>Efectivo</option>
-                <option value="checking_account" {{ old('type') === 'checking_account' ? 'selected' : '' }}>Cuenta Corriente</option>
-                <option value="credit_card" {{ old('type') === 'credit_card' ? 'selected' : '' }}>Tarjeta de Crédito</option>
-                <option value="savings_account" {{ old('type') === 'savings_account' ? 'selected' : '' }}>Ahorros</option>
+                <option value="checking_account" {{ old('type') === 'checking_account' ? 'selected' : '' }}>Cuenta
+                  Corriente</option>
+                <option value="credit_card" {{ old('type') === 'credit_card' ? 'selected' : '' }}>Tarjeta de Crédito
+                </option>
+                <option value="savings_account" {{ old('type') === 'savings_account' ? 'selected' : '' }}>Ahorros
+                </option>
               </select>
               @error('type')
                 <p class="mt-1 text-sm text-red-600 dark:text-red-500">{{ $message }}</p>
               @enderror
             </div>
             <div>
-              <label for="current_balance"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Saldo Actual</label>
+              <label for="current_balance" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Saldo
+                Actual</label>
               <input type="number" name="current_balance" id="current_balance" step="0.01" min="0"
                 value="{{ old('current_balance', 0) }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500"
@@ -333,8 +342,8 @@
               @enderror
             </div>
             <div>
-              <label for="credit_limit"
-                class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Límite de Crédito</label>
+              <label for="credit_limit" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Límite de
+                Crédito</label>
               <input type="number" name="credit_limit" id="credit_limit" step="0.01" min="0"
                 value="{{ old('credit_limit') }}"
                 class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary-600 focus:border-primary-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-primary-500 dark:focus:border-primary-500 opacity-50"
@@ -363,7 +372,8 @@
   <div id="updateAccountModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-2xl max-h-full">
-      <div class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
+      <div
+        class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
         <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
           <h3 class="text-lg font-semibold text-gray-900 dark:text-white">Actualizar Cuenta</h3>
           <button type="button"
@@ -419,6 +429,10 @@
           <div class="flex items-center space-x-4">
             <button type="submit"
               class="text-white bg-primary-700 hover:bg-primary-800 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-primary-600 dark:hover:bg-primary-700 dark:focus:ring-primary-800">Actualizar</button>
+            <button type="button" data-modal-target="updateAccountModal" data-modal-toggle="updateAccountModal"
+              class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
+              Cancelar
+            </button>
           </div>
         </form>
       </div>
@@ -429,24 +443,21 @@
   <div id="readAccountModal" tabindex="-1" aria-hidden="true"
     class="hidden overflow-y-auto overflow-x-hidden fixed top-0 right-0 left-0 z-50 justify-center items-center w-full md:inset-0 h-[calc(100%-1rem)] max-h-full">
     <div class="relative p-4 w-full max-w-xl max-h-full">
-      <div class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
-        <div class="flex justify-between mb-4 rounded-t sm:mb-5">
-          <div class="text-lg text-gray-900 md:text-xl dark:text-white">
-            <h3 class="font-semibold" id="read-name"></h3>
-          </div>
-          <div>
-            <button type="button"
-              class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 inline-flex dark:hover:bg-gray-600 dark:hover:text-white"
-              data-modal-toggle="readAccountModal">
-              <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
-                xmlns="http://www.w3.org/2000/svg">
-                <path fill-rule="evenodd"
-                  d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
-                  clip-rule="evenodd" />
-              </svg>
-              <span class="sr-only">Cerrar</span>
-            </button>
-          </div>
+      <div
+        class="relative p-4 bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5">
+        <div class="flex justify-between items-center pb-4 mb-4 rounded-t border-b sm:mb-5 dark:border-gray-600">
+          <h3 class="text-lg font-semibold text-gray-900 dark:text-white" id="read-name"></h3>
+          <button type="button"
+            class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
+            data-modal-hide="readAccountModal">
+            <svg aria-hidden="true" class="w-5 h-5" fill="currentColor" viewbox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg">
+              <path fill-rule="evenodd"
+                d="M4.293 4.293a1 1 0 011.414 0L10 8.586l4.293-4.293a1 1 0 111.414 1.414L11.414 10l4.293 4.293a1 1 0 01-1.414 1.414L10 11.414l-4.293 4.293a1 1 0 01-1.414-1.414L8.586 10 4.293 5.707a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+            <span class="sr-only">Cerrar</span>
+          </button>
         </div>
         <dl>
           <dt class="mb-2 font-semibold leading-none text-gray-900 dark:text-white">Tipo</dt>
@@ -464,7 +475,7 @@
           <dd class="mb-4 font-light text-gray-500 sm:mb-5 dark:text-gray-400"><i id="read-icon" class="text-2xl"></i>
           </dd>
         </dl>
-        <div class="flex justify-between items-center">
+        <div class="flex justify-end items-center pt-4 border-t dark:border-gray-600">
           <button type="button"
             class="py-2.5 px-5 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-primary-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700"
             data-modal-toggle="readAccountModal">Cerrar</button>
@@ -477,7 +488,8 @@
   <div id="deleteAccountModal" tabindex="-1" aria-hidden="true"
     class="hidden fixed inset-0 z-50 flex justify-center items-center w-full md:inset-0 h-full max-h-full overflow-y-auto">
     <div class="absolute inset-0 bg-gray-900/50" onclick="closeModal('deleteAccountModal')"></div>
-    <div class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
+    <div
+      class="relative p-4 w-full max-w-md max-h-full bg-white rounded-lg shadow border border-gray-200 dark:border-gray-600 dark:bg-gray-800 sm:p-5 my-4">
       <button type="button"
         class="text-gray-400 absolute top-2.5 right-2.5 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm p-1.5 ml-auto inline-flex items-center dark:hover:bg-gray-600 dark:hover:text-white"
         data-modal-toggle="deleteAccountModal">
@@ -601,8 +613,10 @@
 
             document.getElementById('read-name').textContent = name;
             document.getElementById('read-type').textContent = accountTypeLabels[type] || type;
-            document.getElementById('read-current-balance').textContent = '$' + parseFloat(currentBalance).toFixed(2);
-            document.getElementById('read-credit-limit').textContent = creditLimit ? '$' + parseFloat(creditLimit).toFixed(2) : '—';
+            document.getElementById('read-current-balance').textContent = '$' + parseFloat(currentBalance)
+              .toFixed(2);
+            document.getElementById('read-credit-limit').textContent = creditLimit ? '$' + parseFloat(
+              creditLimit).toFixed(2) : '—';
             document.getElementById('read-color').style.backgroundColor = color;
             document.getElementById('read-color-text').textContent = color;
             document.getElementById('read-icon').className = icon + ' text-2xl';
